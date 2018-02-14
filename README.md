@@ -2,7 +2,7 @@
 A brief look at creating a secure, multi-channel connection to Rails Action Cable
 
 # Overview
-If you've found your way here, you're probably looking for a quick and easy way to get Rails to deal with websocket connections. In this brief tutorial, I'll be showing you how to send instant messages from the Rails server to your frontend. The examples I'll be featuring uses React, but you should be able to connect this to any similar frontend framework.
+If you've found your way here, you're probably looking for a quick and easy way to get Rails to deal with websocket connections. In this brief tutorial, I'll be showing you how to send instant messages from the Rails server to your frontend. The examples I'll be featuring uses React, but you should be able to connect this to any similar frontend framework. If you want to check out my project that this tutorial's examples come from, you can find it here: https://github.com/Rainmire/message-me
 
 # What is Action Cable?
 Action Cable is Rails 5's solution to dealing with websocket connections. It utilizes a pub/sub paradigm to broadcast information to groups of subscribers. If you want to know more about the nitty-gritty details, here's the official documentation: https://github.com/rails/rails/tree/master/actioncable
@@ -120,4 +120,7 @@ class MessageRelayJob < ApplicationJob
   end
 end
 ```
-Inside the job class, the message to be sent is constructed using a partial view. It is then broadcasted to the channel `chat_#{id}`, which is received by `stream_from "chat_#{membership.conversation_id}"` back in Step 3.
+Inside the job class, the message to be sent is constructed using a partial view. It is then broadcasted to the channel `chat_#{id}`, which is received by `stream_from "chat_#{membership.conversation_id}"` back in Step 3. It's certainly not necessary to use a partial to do this. In fact, `message` can be as simple as a string.
+
+## That's it!
+That's everything you need to get a basic channel subscription working using Rails Action Cable. You can even add additional channel classes if you need to send different types of information.
